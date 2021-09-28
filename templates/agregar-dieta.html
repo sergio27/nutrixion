@@ -1,0 +1,46 @@
+<!-- Agregar Dieta Modal-->
+<div class="modal fade" id="agregarDietaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="POST" action="{{ url_for('agregar_dieta', id_cliente=cliente.id)}}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Dieta</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!-- DataTales Example -->
+
+                <div class="card-body">
+
+                    <div class="col-12">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" name="fecha" required="A">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="calorias" class="form-label">Calorías</label>
+                        <input type="number" class="form-control" name="calorias" required="">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="duracion" class="form-label">Duración</label>
+                        <input type="number" class="form-control" name="duracion" required="">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="notas" class="form-label">Notas</label>
+                        <input type="text" class="form-control" name="notas">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    {{ form.enviar(class="btn btn-primary") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

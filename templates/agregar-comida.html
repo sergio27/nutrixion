@@ -1,0 +1,31 @@
+<!-- Agregar Comida Modal-->
+<div class="modal fade" id="agregarComidaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="POST" action="{{ url_for('agregar_comida') }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar Comida</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!-- DataTales Example -->
+
+                <div class="card-body">
+                    <div>{{ form.tipo.label }}: {{ form.tipo() }}</div>
+                    <div>{{ form.nombre.label }}: {{ form.nombre() }}</div>
+                    <div>{{ form.descripcion.label }}: {{ form.descripcion() }}</div>
+                    <div>{{ form.calorias.label }}: {{ form.calorias() }}</div>
+                    <div>{{ form.dieta.label }}: {{ form.dieta() }}</div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    {{ form.enviar(class="btn btn-primary") }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

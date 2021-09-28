@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nutrixión - Register</title>
+
+    {% include("head.html") %}
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block" style="background-image: url(/static/img/register-image.jpg); height: 620px; width: 800px;"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h3 text-gray-900 mb-4">¡Regístrate!</h1>
+                            </div>
+                            <form class="user" name="form" method="POST" action="{{ url_for('registro') }}">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <input type="text" class="form-control form-control-user" name="nombre"
+                                            placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" name="correo"
+                                        placeholder="Correo electrónico">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            name="contrasena" placeholder="Contraseña">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            name="confirmarContrasena" placeholder="Confirmar contraseña">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-user btn-block"  value="Submit">Registrarte</button>
+
+                                </a>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="{{ url_for('login') }}">¿Ya tienes una cuenta? ¡Inicia sesión!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% include("scripts.html") %}
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nutrixión - Comidas</title>
+    {% include "head.html" %}
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {% with seccion="Comidas" %}
+            {% include "sidebar.html" %}
+        {% endwith %}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {% include "topbar.html" %}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Comidas</h1>
+                    <p class="mb-4"></p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Comidas</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#"
+                                   data-toggle="modal" data-target="#agregarComidaModal">
+                                    <i class="fas fa-plus fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Calorías</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Calorías</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for comida in comidas %}
+                                        <tr>
+                                            <td>{{ comida["tipo"] }}</td>
+                                            <td>{{ comida["nombre"] }}</td>
+                                            <td>{{ comida["descripcion"] }}</td>
+                                            <td>{{ comida["calorias"] }}</td>
+                                            <td>
+                                                <a href="" data-toggle="modal"
+                                                   data-target="#editarComidaModal{{ comida.id }}">
+                                                    <i class="fas fa-edit"></i></a>
+                                                <a href="{{ url_for('eliminar_comida', id_comida=comida['id']) }}"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {% include "footer.html" %}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Agregar Comida Modal-->
+    {% include('agregar-comida.html') %}
+
+    <!-- Editar Comida Modal-->
+    {% for comida in comidas %}
+    <div class="modal fade" id="editarComidaModal{{ comida.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ url_for('editar_comida', id_comida=comida.id) }}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Comida</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <!-- DataTales Example -->
+                    <div class="card-body">
+                        <div>{{ form.tipo.label }}: {{ form.tipo() }}</div>
+                        <div>{{ form.nombre.label }}:{{ form.nombre(value=comida.nombre) }}</div>
+                        <div>{{ form.descripcion.label }}: {{ form.descripcion(value=comida.descripcion) }}</div>
+                        <div>{{ form.calorias.label }}: {{ form.calorias(value=comida.calorias) }}</div>
+                        <div>{{ form.dieta.label }}: {{ form.dieta() }}</div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        {{ form.enviar(class="btn btn-primary") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Scripts -->
+    {% include "scripts.html" %}
+    <!-- End of Scripts -->
+
+</body>
+
+</html>

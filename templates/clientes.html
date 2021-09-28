@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nutrixión - Clientes</title>
+
+    {% include "head.html" %}
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {% with seccion="Clientes" %}
+        {% include "sidebar.html" %}
+        {% endwith %}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {% include "topbar.html" %}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+                    <p class="mb-4"></p>
+
+                    <!-- Clientes DataTables -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Clientes</h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#"
+                                   data-toggle="modal" data-target="#agregarClienteModal">
+                                    <i class="fas fa-plus fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Edad</th>
+                                        <th>Peso</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Edad</th>
+                                        <th>Peso</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th></th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for cliente in clientes %}
+                                    <tr>
+                                        <td><a href="{{ url_for('ver_cliente', id_cliente=cliente['id']) }}">{{
+                                            cliente["nombre"] }}</a></td>
+                                        <td>{{ cliente["edad"] }}</td>
+                                        <td>{{ "%.2f" % cliente["peso"] }} kg</td>
+                                        <td>{{ cliente["fecha_inicio"] }}</td>
+                                        <td>
+                                            <a href="" data-toggle="modal"
+                                               data-target="#editarClienteModal{{ cliente.id }}">
+                                                <i class="fas fa-edit"></i></a>
+                                            <a href="{{ url_for('eliminar_cliente', id_cliente=cliente['id']) }}"><i
+                                                    class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {% include "footer.html" %}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Agregar Cliente Modal-->
+    {% include("agregar-cliente.html") %}
+
+    <!-- Editar Cliente Modal-->
+    {% for cliente in clientes %}
+    <div class="modal fade" id="editarClienteModal{{ cliente.id }}" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ url_for('editar_cliente', id_cliente=cliente.id)}}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Cliente</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" value="{{ cliente.nombre }}">
+                            </div>
+                            <div class="col-12">
+                                <label for="edad" class="form-label">Edad</label>
+                                <input type="number" class="form-control" name="edad" value="{{ cliente.edad }}">
+                            </div>
+                            <div class="col-12">
+                                <label for="peso" class="form-label">Peso</label>
+                                <input type="number" class="form-control" name="peso"
+                                       value="{{'%0.2f'|format(cliente.peso|float)}}">
+                            </div>
+                            <div class="col-12">
+                                <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
+                                <input type="date" class="form-control" name="fecha_inicio"">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        {{ form.enviar(class="btn btn-primary") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Logout Modal-->
+    {% include "logout.html" %}
+
+    <!-- Scripts -->
+    {% include "scripts.html" %}
+    <!-- End of Scripts -->
+
+</body>
+
+</html>
